@@ -24,6 +24,23 @@
   <div id="app"></div>
   <script>
     (function() {
+      var _fetch = window.fetch;
+      if (_fetch) {
+        window.fetch = function(url, opts) {
+          var u = typeof url === 'string' ? url : (url && url.url || '');
+          if (u && u.indexOf('_sidebar.md') >= 0) {
+            return _fetch.apply(this, arguments).then(function(r) {
+              if (r.status === 404) return new Response('* [Home](/kr/Home)', { status: 200, headers: { 'Content-Type': 'text/markdown' } });
+              return r;
+            }).catch(function() {
+              return new Response('* [Home](/kr/Home)', { status: 200, headers: { 'Content-Type': 'text/markdown' } });
+            });
+          }
+          return _fetch.apply(this, arguments);
+        };
+      }
+    })();
+    (function() {
       if (window.location.protocol === 'file:') { window._wikiBasePath = ''; return; }
       var p = window.location.pathname || '';
       window._wikiBasePath = (p === '/' || p === '/index.html' || !p) ? '' : (p.replace(/\/index\.html$/i, '').replace(/\/?$/, '') + '/');
