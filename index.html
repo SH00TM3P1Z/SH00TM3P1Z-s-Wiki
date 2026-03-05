@@ -25,14 +25,15 @@
     (function() {
       if (window.location.protocol === 'file:') { window._wikiBasePath = ''; return; }
       var p = window.location.pathname || '';
-      window._wikiBasePath = (p === '/' || p === '/index.html' || !p) ? '' : (p.replace(/\/index\.html$/i, '').replace(/\/?$/, '') + '/');
+      var sub = (p === '/' || p === '/index.html' || !p) ? '' : (p.replace(/\/index\.html$/i, '').replace(/\/?$/, '') + '/');
+      window._wikiBasePath = sub ? (window.location.origin + (sub.startsWith('/') ? '' : '/') + sub) : '';
     })();
     window.$docsify = {
       name: "SH00TM3P1Z's Wiki",
       loadSidebar: true,
       subMaxLevel: 3,
       auto2top: true,
-      homepage: 'choose.md',
+      homepage: window._wikiBasePath ? window._wikiBasePath + 'choose.md' : 'choose.md',
       basePath: window._wikiBasePath,
       plugins: [
         function(hook, vm) {
