@@ -12,25 +12,99 @@
     .lang-select a { display: inline-block; margin: 8px; padding: 14px 28px; font-size: 1.1em;
       background: #42b983; color: #fff !important; text-decoration: none; border-radius: 6px; }
     .lang-select a:hover { background: #33a372; }
+    .app-name a { font-size: 1.5em; font-weight: 600; color: inherit !important; text-decoration: none; }
+    .sidebar-lang { padding: 16px; margin-top: auto; margin-bottom: 48px; border-top: 1px solid rgba(0,0,0,.07); }
+    .sidebar-lang label { display: block; font-size: 12px; color: #999; margin-bottom: 6px; }
+    .sidebar-lang select { width: 100%; padding: 8px 10px; font-size: 13px; border-radius: 4px;
+      border: 1px solid #ddd; cursor: pointer; background: #fff; }
   </style>
 </head>
 <body>
   <div id="app"></div>
   <script>
+    (function() {
+      if (window.location.protocol === 'file:') { window._wikiBasePath = ''; return; }
+      var p = window.location.pathname || '';
+      window._wikiBasePath = (p === '/' || p === '/index.html' || !p) ? '' : (p.replace(/\/index\.html$/i, '').replace(/\/?$/, '') + '/');
+    })();
     window.$docsify = {
-      name: 'Enhanced Dogtags Wiki',
+      name: "SH00TM3P1Z's Wiki",
       loadSidebar: true,
       subMaxLevel: 3,
       auto2top: true,
       homepage: 'choose.md',
-      alias: {
-        '/kr/_sidebar.md': '/wiki/Kr/_Sidebar.md',
-        '/kr/(.*)': '/wiki/Kr/$1',
-        '/en/_sidebar.md': '/wiki/En/_Sidebar.md',
-        '/en/(.*)': '/wiki/En/$1'
-      }
+      basePath: window._wikiBasePath,
+      plugins: [
+        function(hook, vm) {
+          function injectSidebarUI() {
+            var sidebar = document.querySelector('.sidebar') || document.querySelector('aside') || document.querySelector('.app-sidebar');
+            if (!sidebar) {
+              var nav = document.querySelector('.sidebar-nav');
+              if (nav && nav.parentElement) sidebar = nav.parentElement;
+            }
+            if (!sidebar) return;
+            if (!document.getElementById('lang-select')) {
+              var nameEl = sidebar.querySelector('.app-name');
+              if (!nameEl) {
+                var nameDiv = document.createElement('div');
+                nameDiv.className = 'app-name';
+                nameDiv.innerHTML = '<a href="#/kr/Home">SH00TM3P1Z\'s Wiki</a>';
+                sidebar.insertBefore(nameDiv, sidebar.firstChild);
+              }
+              var div = document.createElement('div');
+              div.className = 'sidebar-lang';
+              div.innerHTML = '<label id="lang-label">언어</label><select id="lang-select" onchange="switchLang(this.value)"><option value="">-- 선택 --</option><option value="kr">한국어</option><option value="en">English</option><option value="ru">Русский</option><option value="jp">日本語</option><option value="zh">简体中文</option><option value="zhtw">繁體中文</option><option value="es">Español</option><option value="de">Deutsch</option><option value="it">Italiano</option><option value="fr">Français</option></select>';
+              sidebar.style.display = 'flex';
+              sidebar.style.flexDirection = 'column';
+              sidebar.appendChild(div);
+              setTimeout(syncLangSelect, 50);
+            }
+          }
+          hook.mounted(function() { setTimeout(injectSidebarUI, 100); });
+          hook.ready(function() { setTimeout(injectSidebarUI, 150); });
+          hook.doneEach(function() {
+            setTimeout(injectSidebarUI, 50);
+            syncLangSelect();
+            if (window._langSwitchScroll) {
+              var pos = sessionStorage.getItem('wikiScrollPos');
+              if (pos !== null) {
+                setTimeout(function() {
+                  window.scrollTo(0, parseInt(pos, 10));
+                  sessionStorage.removeItem('wikiScrollPos');
+                }, 100);
+              }
+              window._langSwitchScroll = false;
+            }
+          });
+        }
+      ]
     };
+    function switchLang(newCode) {
+      if (!newCode) return;
+      var h = (location.hash || '#/kr/Home').slice(1);
+      var m = h.match(/^\/([a-z0-9-]+)\/(.+)$/);
+      var path = m ? m[2] : 'Home';
+      sessionStorage.setItem('wikiScrollPos', String(window.scrollY));
+      window._langSwitchScroll = true;
+      location.hash = '#/' + newCode + '/' + path;
+    }
+    var LANG_UI = {"kr":{"l":"언어","p":"-- 선택 --"},"en":{"l":"Language","p":"-- Select --"},"ru":{"l":"Язык","p":"-- Выбрать --"},"jp":{"l":"言語","p":"-- 選択 --"},"zh":{"l":"语言","p":"-- 选择 --"},"zhtw":{"l":"語言","p":"-- 選擇 --"},"es":{"l":"Idioma","p":"-- Seleccionar --"},"de":{"l":"Sprache","p":"-- Auswählen --"},"it":{"l":"Lingua","p":"-- Seleziona --"},"fr":{"l":"Langue","p":"-- Sélectionner --"}};
+    function getCurrentLang() {
+      var h = location.hash || '';
+      return (h.indexOf('/kr/') >= 0 ? 'kr' : (h.indexOf('/en/') >= 0 ? 'en' : (h.indexOf('/ru/') >= 0 ? 'ru' : (h.indexOf('/jp/') >= 0 ? 'jp' : (h.indexOf('/zh/') >= 0 ? 'zh' : (h.indexOf('/zhtw/') >= 0 ? 'zhtw' : (h.indexOf('/es/') >= 0 ? 'es' : (h.indexOf('/de/') >= 0 ? 'de' : (h.indexOf('/it/') >= 0 ? 'it' : (h.indexOf('/fr/') >= 0 ? 'fr' : '')))))))))) || 'kr';
+    }
+    function syncLangSelect() {
+      var sel = document.getElementById('lang-select');
+      var lbl = document.getElementById('lang-label');
+      var code = getCurrentLang();
+      var t = LANG_UI[code] || LANG_UI.kr;
+      if (sel) { sel.value = code; if (sel.options[0]) sel.options[0].text = t.p; }
+      if (lbl) lbl.textContent = t.l;
+    }
+    window.addEventListener('hashchange', syncLangSelect);
+    window.addEventListener('load', function() { setTimeout(syncLangSelect, 100); });
   </script>
+  <script src="plugins/lang-link.js"></script>
   <script src="//cdn.jsdelivr.net/npm/docsify/lib/docsify.min.js"></script>
 </body>
 </html>

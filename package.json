@@ -1,0 +1,9 @@
+{
+  "name": "enhanced-dogtags-wiki",
+  "version": "1.0.0",
+  "description": "Enhanced Dogtags mod wiki",
+  "scripts": {
+    "build": "node build-i18n.js",
+    "extract": "node scripts/extract-translations.js"
+  }
+}

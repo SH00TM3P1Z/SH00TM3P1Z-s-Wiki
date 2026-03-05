@@ -1,4 +1,3 @@
-# Enhanced Dogtags Wiki
+# SH00TM3P1Z's Wiki
 
-- [한국어](/#/kr/Home)
-- [English](/#/en/Home)
+- <a href="javascript:void(0)" onclick="location.hash='#/en/Home'">EnhancedDogtags</a>

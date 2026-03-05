@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Enhanced Dogtags Wiki</title>
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify/themes/vue.css">
+  <style>
+    .lang-select { text-align: center; padding: 80px 20px; }
+    .lang-select h1 { margin-bottom: 20px; }
+    .lang-select p { color: #666; margin-bottom: 40px; }
+    .lang-select a { display: inline-block; margin: 8px; padding: 14px 28px; font-size: 1.1em;
+      background: #42b983; color: #fff !important; text-decoration: none; border-radius: 6px; }
+    .lang-select a:hover { background: #33a372; }
+    .app-name a { font-size: 1.5em; font-weight: 600; color: inherit !important; text-decoration: none; }
+    .sidebar-lang { padding: 16px; margin-top: auto; margin-bottom: 48px; border-top: 1px solid rgba(0,0,0,.07); }
+    .sidebar-lang label { display: block; font-size: 12px; color: #999; margin-bottom: 6px; }
+    .sidebar-lang select { width: 100%; padding: 8px 10px; font-size: 13px; border-radius: 4px;
+      border: 1px solid #ddd; cursor: pointer; background: #fff; }
+  </style>
+</head>
+<body>
+  <div id="app"></div>
+  <script>
+    (function() {
+      if (window.location.protocol === 'file:') { window._wikiBasePath = ''; return; }
+      var p = window.location.pathname || '';
+      window._wikiBasePath = (p === '/' || p === '/index.html' || !p) ? '' : (p.replace(/\/index\.html$/i, '').replace(/\/?$/, '') + '/');
+    })();
+    window.$docsify = {
+      name: "SH00TM3P1Z's Wiki",
+      loadSidebar: true,
+      subMaxLevel: 3,
+      auto2top: true,
+      homepage: 'choose.md',
+      basePath: window._wikiBasePath,
+      plugins: [
+        function(hook, vm) {
+          hook.mounted(function() {
+            var nav = document.querySelector('.sidebar-nav');
+            var sidebar = document.querySelector('.sidebar') || (nav && nav.parentElement);
+            if (sidebar && !document.getElementById('lang-select')) {
+              var div = document.createElement('div');
+              div.className = 'sidebar-lang';
+              div.innerHTML = '<label id="lang-label">언어</label><select id="lang-select" onchange="switchLang(this.value)"><option value="">-- 선택 --</option>{{LANG_OPTIONS}}</select>';
+              sidebar.style.display = 'flex';
+              sidebar.style.flexDirection = 'column';
+              sidebar.appendChild(div);
+              setTimeout(syncLangSelect, 50);
+            }
+          });
+          hook.doneEach(function() {
+            var nav = document.querySelector('.sidebar-nav');
+            var sidebar = document.querySelector('.sidebar') || (nav && nav.parentElement);
+            if (sidebar && !document.getElementById('lang-select')) {
+              var div = document.createElement('div');
+              div.className = 'sidebar-lang';
+              div.innerHTML = '<label id="lang-label">언어</label><select id="lang-select" onchange="switchLang(this.value)"><option value="">-- 선택 --</option>{{LANG_OPTIONS}}</select>';
+              sidebar.style.display = 'flex';
+              sidebar.style.flexDirection = 'column';
+              sidebar.appendChild(div);
+            }
+            syncLangSelect();
+            if (window._langSwitchScroll) {
+              var pos = sessionStorage.getItem('wikiScrollPos');
+              if (pos !== null) {
+                setTimeout(function() {
+                  window.scrollTo(0, parseInt(pos, 10));
+                  sessionStorage.removeItem('wikiScrollPos');
+                }, 100);
+              }
+              window._langSwitchScroll = false;
+            }
+          });
+        }
+      ]
+    };
+    function switchLang(newCode) {
+      if (!newCode) return;
+      var h = (location.hash || '#/kr/Home').slice(1);
+      var m = h.match(/^\/([a-z0-9-]+)\/(.+)$/);
+      var path = m ? m[2] : 'Home';
+      sessionStorage.setItem('wikiScrollPos', String(window.scrollY));
+      window._langSwitchScroll = true;
+      location.hash = '#/' + newCode + '/' + path;
+    }
+    var LANG_UI = {{LANG_UI}};
+    function getCurrentLang() {
+      var h = location.hash || '';
+      return {{SYNC_LOGIC}} || 'kr';
+    }
+    function syncLangSelect() {
+      var sel = document.getElementById('lang-select');
+      var lbl = document.getElementById('lang-label');
+      var code = getCurrentLang();
+      var t = LANG_UI[code] || LANG_UI.kr;
+      if (sel) { sel.value = code; if (sel.options[0]) sel.options[0].text = t.p; }
+      if (lbl) lbl.textContent = t.l;
+    }
+    window.addEventListener('hashchange', syncLangSelect);
+    window.addEventListener('load', function() { setTimeout(syncLangSelect, 100); });
+  </script>
+  <script src="plugins/lang-link.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/docsify/lib/docsify.min.js"></script>
+</body>
+</html>
