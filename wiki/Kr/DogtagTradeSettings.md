@@ -23,7 +23,7 @@
 ### UseDateRange
 
 - **false:** 날짜 제한 없음. `StartDate`, `EndDate`는 무시됩니다.
-- **true:** `StartDate`~`EndDate` 범위 내에서만 거래 가능.
+- **true:** `StartDate` ~ `EndDate` 범위 내에서만 거래 가능.
 
 ### StartDate / EndDate
 
