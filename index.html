@@ -28,13 +28,17 @@
       var sub = (p === '/' || p === '/index.html' || !p) ? '' : (p.replace(/\/index\.html$/i, '').replace(/\/?$/, '') + '/');
       window._wikiBasePath = sub ? (window.location.origin + (sub.startsWith('/') ? '' : '/') + sub) : '';
     })();
+    var CHOOSE_MD = '# <span id="home-title">SH00TM3P1Z\'s Mods</span>\n\n---\n\n<a href="javascript:void(0)" onclick="location.hash=\'#/en/Home\';return false;" style="display:inline-block;margin:8px;padding:14px 28px;font-size:1.1em;background:#42b983;color:#fff!important;text-decoration:none;border-radius:6px;">EnhancedDogtags</a>';
     window.$docsify = {
       name: "SH00TM3P1Z's Wiki",
       loadSidebar: true,
       subMaxLevel: 3,
       auto2top: true,
-      homepage: window._wikiBasePath ? window._wikiBasePath + 'choose.md' : 'choose.md',
       basePath: window._wikiBasePath,
+      routes: {
+        '/': CHOOSE_MD,
+        '': CHOOSE_MD
+      },
       plugins: [
         function(hook, vm) {
           function injectSidebarUI() {
