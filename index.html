@@ -35,11 +35,13 @@
       auto2top: true,
       homepage: 'choose.md',
       basePath: window._wikiBasePath,
+      notFoundPage: false,
       routes: {
         '/': CHOOSE_MD,
         '': CHOOSE_MD,
         '/README': CHOOSE_MD,
-        '/README.md': CHOOSE_MD
+        '/README.md': CHOOSE_MD,
+        '/_404.md': '# 404\n\nPage not found.'
       },
       plugins: [
         function(hook, vm) {
@@ -109,11 +111,13 @@
       location.hash = '#/' + newCode + '/' + path;
     }
     var LANG_UI = {"kr":{"l":"언어","p":"-- 선택 --"},"en":{"l":"Language","p":"-- Select --"},"ru":{"l":"Язык","p":"-- Выбрать --"},"jp":{"l":"言語","p":"-- 選択 --"},"zh":{"l":"语言","p":"-- 选择 --"},"zhtw":{"l":"語言","p":"-- 選擇 --"},"es":{"l":"Idioma","p":"-- Seleccionar --"},"de":{"l":"Sprache","p":"-- Auswählen --"},"it":{"l":"Lingua","p":"-- Seleziona --"},"fr":{"l":"Langue","p":"-- Sélectionner --"}};
-    var HOME_TITLE = {kr:"SH00TM3P1Z 모드",en:"SH00TM3P1Z's Mods",ru:"Моды SH00TM3P1Z",jp:"SH00TM3P1ZのMod",zh:"SH00TM3P1Z的模组",zhtw:"SH00TM3P1Z的模組",es:"Mods de SH00TM3P1Z",de:"SH00TM3P1Z's Mods",it:"Mod di SH00TM3P1Z",fr:"Mods de SH00TM3P1Z"};
+    var HOME_TITLE = {kr:"SH00TM3P1Z \uBAA8\uB4DC",en:"SH00TM3P1Z's Mods",ru:"\u041C\u043E\u0434\u044B SH00TM3P1Z",jp:"SH00TM3P1Z\u306EMod",zh:"SH00TM3P1Z\u7684\u6A21\u7EC4",zhtw:"SH00TM3P1Z\u7684\u6A21\u7D44",es:"Mods de SH00TM3P1Z",de:"SH00TM3P1Z's Mods",it:"Mod di SH00TM3P1Z",fr:"Mods de SH00TM3P1Z"};
     function getCurrentLang() {
       var h = location.hash || '';
-      var fromHash = (h.indexOf('/kr/') >= 0 ? 'kr' : (h.indexOf('/en/') >= 0 ? 'en' : (h.indexOf('/ru/') >= 0 ? 'ru' : (h.indexOf('/jp/') >= 0 ? 'jp' : (h.indexOf('/zhtw/') >= 0 ? 'zhtw' : (h.indexOf('/zh/') >= 0 ? 'zh' : (h.indexOf('/es/') >= 0 ? 'es' : (h.indexOf('/de/') >= 0 ? 'de' : (h.indexOf('/it/') >= 0 ? 'it' : (h.indexOf('/fr/') >= 0 ? 'fr' : '')))))))));
-      if (fromHash) return fromHash;
+      var codes = ['kr','en','ru','jp','zhtw','zh','es','de','it','fr'];
+      for (var i = 0; i < codes.length; i++) {
+        if (h.indexOf('/' + codes[i] + '/') >= 0) return codes[i];
+      }
       var pref = sessionStorage.getItem('wikiLangPref');
       if (pref) return pref;
       var lang = (navigator.language || navigator.userLanguage || '').toLowerCase();
