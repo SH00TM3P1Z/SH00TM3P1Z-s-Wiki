@@ -23,15 +23,25 @@ git push -u origin main
 
 > `내GitHub아이디`를 본인 GitHub 사용자명으로 바꾸세요.
 
-## 3. GitHub Pages 활성화
+## 3. docs 폴더 준비 및 푸시
+
+```powershell
+cd "P:\SH00TM3P1Z's-Wiki"
+powershell -ExecutionPolicy Bypass -File setup-docs.ps1
+git add docs
+git commit -m "Add docs folder for GitHub Pages"
+git push
+```
+
+## 4. GitHub Pages 활성화
 
 1. 저장소 페이지에서 **Settings** 클릭
 2. 왼쪽 메뉴 **Pages** 클릭
 3. **Source**: `Deploy from a branch` 선택
-4. **Branch**: `main` 선택, 폴더 `/ (root)` 선택
+4. **Branch**: `main` 선택, **폴더 `/docs` 선택** (중요!)
 5. **Save** 클릭
 
-## 4. 배포 완료
+## 5. 배포 완료
 
 몇 분 후 아래 주소로 접속 가능합니다:
 
