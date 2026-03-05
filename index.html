@@ -67,8 +67,10 @@
             syncLangSelect();
             var ht = document.getElementById('home-title');
             if (ht && HOME_TITLE) {
-              var lang = (navigator.language || navigator.userLanguage || '').toLowerCase();
-              var code = (lang.indexOf('ko')>=0?'kr':lang.indexOf('ja')>=0?'jp':lang.indexOf('zh-tw')>=0||lang.indexOf('zh-hant')>=0?'zhtw':lang.indexOf('zh')>=0?'zh':lang.indexOf('ru')>=0?'ru':lang.indexOf('es')>=0?'es':lang.indexOf('de')>=0?'de':lang.indexOf('it')>=0?'it':lang.indexOf('fr')>=0?'fr':'en');
+              var code = getCurrentLang() || (function(){
+                var lang = (navigator.language || navigator.userLanguage || '').toLowerCase();
+                return lang.indexOf('ko')>=0?'kr':lang.indexOf('ja')>=0?'jp':lang.indexOf('zh-tw')>=0||lang.indexOf('zh-hant')>=0?'zhtw':lang.indexOf('zh')>=0?'zh':lang.indexOf('ru')>=0?'ru':lang.indexOf('es')>=0?'es':lang.indexOf('de')>=0?'de':lang.indexOf('it')>=0?'it':lang.indexOf('fr')>=0?'fr':'en';
+              })();
               ht.textContent = HOME_TITLE[code] || HOME_TITLE.en;
             }
             if (window._langSwitchScroll) {
