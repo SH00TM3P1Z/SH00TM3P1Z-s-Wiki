@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Enhanced Dogtags Wiki</title>
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify/themes/vue.css">
+  <style>
+    .lang-select { text-align: center; padding: 80px 20px; }
+    .lang-select h1 { margin-bottom: 20px; }
+    .lang-select p { color: #666; margin-bottom: 40px; }
+    .lang-select a { display: inline-block; margin: 8px; padding: 14px 28px; font-size: 1.1em;
+      background: #42b983; color: #fff !important; text-decoration: none; border-radius: 6px; }
+    .lang-select a:hover { background: #33a372; }
+  </style>
+</head>
+<body>
+  <div id="app"></div>
+  <script>
+    window.$docsify = {
+      name: 'Enhanced Dogtags Wiki',
+      loadSidebar: true,
+      subMaxLevel: 3,
+      auto2top: true,
+      homepage: 'choose.md',
+      alias: {
+        '/kr/_sidebar.md': '/wiki/Kr/_Sidebar.md',
+        '/kr/(.*)': '/wiki/Kr/$1',
+        '/en/_sidebar.md': '/wiki/En/_Sidebar.md',
+        '/en/(.*)': '/wiki/En/$1'
+      }
+    };
+  </script>
+  <script src="//cdn.jsdelivr.net/npm/docsify/lib/docsify.min.js"></script>
+</body>
+</html>

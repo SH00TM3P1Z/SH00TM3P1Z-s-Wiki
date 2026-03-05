@@ -1,4 +1,4 @@
-**[Home](Home)**
+**[Home](Home)** · [한국어](/#/kr/Home)
 
 - [Dogtag Settings](DogtagSettings)
 - [AI Dogtag Settings](AIDogtagSettings)

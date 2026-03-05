@@ -1,4 +1,4 @@
-**[홈](Home)**
+**[홈](Home)** · [English](/#/en/Home)
 
 - [독택 기본 설정](DogtagSettings)
 - [AI 독택 설정](AIDogtagSettings)
