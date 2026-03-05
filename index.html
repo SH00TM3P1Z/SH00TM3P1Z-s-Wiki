@@ -89,7 +89,14 @@
     };
     function switchLang(newCode) {
       if (!newCode) return;
-      var h = (location.hash || '#/kr/Home').slice(1);
+      var h = (location.hash || '#/').slice(1);
+      if (h === '' || h === '/' || !h.match(/\/[a-z0-9-]+\/.+/)) {
+        sessionStorage.setItem('wikiLangPref', newCode);
+        var ht = document.getElementById('home-title');
+        if (ht && typeof HOME_TITLE !== 'undefined') ht.textContent = HOME_TITLE[newCode] || HOME_TITLE.en;
+        syncLangSelect();
+        return;
+      }
       var m = h.match(/^\/([a-z0-9-]+)\/(.+)$/);
       var path = m ? m[2] : 'Home';
       sessionStorage.setItem('wikiScrollPos', String(window.scrollY));
