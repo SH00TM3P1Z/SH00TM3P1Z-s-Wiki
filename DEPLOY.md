@@ -10,14 +10,14 @@
 
 ## 2. 터미널에서 업로드
 
-```powershell
+```powershellgit remote set-url origin https://github.com/SH00TM3P1Z/SH00TM3P1Z-s-Wiki.git
 cd "P:\SH00TM3P1Z's-Wiki"
 
 git init
 git add .
 git commit -m "Initial commit"
 git branch -M main
-git remote add origin https://github.com/SH00TM3P1Z/SH00TM3P1Z-Wiki.git
+git remote add origin https://github.com/SH00TM3P1Z/SH00TM3P1Z-s-Wiki.git
 git push -u origin main
 ```
 

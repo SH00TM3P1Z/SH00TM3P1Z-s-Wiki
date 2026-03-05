@@ -1,4 +1,4 @@
-# SH00TM3P1Z's Wiki
+# <span id="home-title">SH00TM3P1Z's Mods</span>
 
 ---
 
