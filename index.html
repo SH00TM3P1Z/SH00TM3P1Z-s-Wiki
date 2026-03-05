@@ -68,10 +68,7 @@
             [100, 200, 400].forEach(function(ms) { setTimeout(syncLangSelect, ms); });
             var ht = document.getElementById('home-title');
             if (ht && HOME_TITLE) {
-              var code = getCurrentLang() || (function(){
-                var lang = (navigator.language || navigator.userLanguage || '').toLowerCase();
-                return lang.indexOf('ko')>=0?'kr':lang.indexOf('ja')>=0?'jp':lang.indexOf('zh-tw')>=0||lang.indexOf('zh-hant')>=0?'zhtw':lang.indexOf('zh')>=0?'zh':lang.indexOf('ru')>=0?'ru':lang.indexOf('es')>=0?'es':lang.indexOf('de')>=0?'de':lang.indexOf('it')>=0?'it':lang.indexOf('fr')>=0?'fr':'en';
-              })();
+              var code = getCurrentLang();
               ht.textContent = HOME_TITLE[code] || HOME_TITLE.en;
             }
             if (window._langSwitchScroll) {
@@ -108,7 +105,12 @@
     var HOME_TITLE = {kr:"SH00TM3P1Z 모드",en:"SH00TM3P1Z's Mods",ru:"Моды SH00TM3P1Z",jp:"SH00TM3P1ZのMod",zh:"SH00TM3P1Z的模组",zhtw:"SH00TM3P1Z的模組",es:"Mods de SH00TM3P1Z",de:"SH00TM3P1Z's Mods",it:"Mod di SH00TM3P1Z",fr:"Mods de SH00TM3P1Z"};
     function getCurrentLang() {
       var h = location.hash || '';
-      return (h.indexOf('/kr/') >= 0 ? 'kr' : (h.indexOf('/en/') >= 0 ? 'en' : (h.indexOf('/ru/') >= 0 ? 'ru' : (h.indexOf('/jp/') >= 0 ? 'jp' : (h.indexOf('/zh/') >= 0 ? 'zh' : (h.indexOf('/zhtw/') >= 0 ? 'zhtw' : (h.indexOf('/es/') >= 0 ? 'es' : (h.indexOf('/de/') >= 0 ? 'de' : (h.indexOf('/it/') >= 0 ? 'it' : (h.indexOf('/fr/') >= 0 ? 'fr' : '')))))))))) || 'kr';
+      var fromHash = (h.indexOf('/kr/') >= 0 ? 'kr' : (h.indexOf('/en/') >= 0 ? 'en' : (h.indexOf('/ru/') >= 0 ? 'ru' : (h.indexOf('/jp/') >= 0 ? 'jp' : (h.indexOf('/zhtw/') >= 0 ? 'zhtw' : (h.indexOf('/zh/') >= 0 ? 'zh' : (h.indexOf('/es/') >= 0 ? 'es' : (h.indexOf('/de/') >= 0 ? 'de' : (h.indexOf('/it/') >= 0 ? 'it' : (h.indexOf('/fr/') >= 0 ? 'fr' : '')))))))));
+      if (fromHash) return fromHash;
+      var pref = sessionStorage.getItem('wikiLangPref');
+      if (pref) return pref;
+      var lang = (navigator.language || navigator.userLanguage || '').toLowerCase();
+      return lang.indexOf('ko')>=0?'kr':lang.indexOf('ja')>=0?'jp':(lang.indexOf('zh-tw')>=0||lang.indexOf('zh-hant')>=0)?'zhtw':lang.indexOf('zh')>=0?'zh':lang.indexOf('ru')>=0?'ru':lang.indexOf('es')>=0?'es':lang.indexOf('de')>=0?'de':lang.indexOf('it')>=0?'it':lang.indexOf('fr')>=0?'fr':'kr';
     }
     function syncLangSelect() {
       var sel = document.getElementById('lang-select');
