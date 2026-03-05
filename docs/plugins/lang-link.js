@@ -7,7 +7,7 @@
 (function() {
   function prefixLangLinks() {
     var hash = location.hash.slice(1) || '';
-    var match = hash.match(/^\/([a-z]{2})\//);
+    var match = hash.match(/^\/([a-z]{2,})\//);
     if (!match) return;
     var prefix = '/' + match[1] + '/';
     var main = document.querySelector('.markdown-section');
@@ -27,7 +27,7 @@
         if (!path || path.indexOf('.') >= 0) return;
         anchor = parts[1] ? '#' + parts[1] : '';
       } else return;
-      if (/^[a-z]{2}\//.test(path)) return;
+      if (/^[a-z]{2,}\//.test(path)) return;
       a.setAttribute('href', '#/' + langPrefix + path + anchor);
     });
   }
