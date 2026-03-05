@@ -1,4 +1,4 @@
-**[Inicio](/es/Home)**
+**[🏠 Inicio](/es/Home)**
 
 - [Configuración de placas](/es/DogtagSettings)
 - [Configuración de placas IA](/es/AIDogtagSettings)

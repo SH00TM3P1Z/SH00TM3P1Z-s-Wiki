@@ -1,4 +1,4 @@
-**[ホーム](/jp/Home)**
+**[🏠 ホーム](/jp/Home)**
 
 - [ドッグタグ基本設定](/jp/DogtagSettings)
 - [AI ドッグタグ設定](/jp/AIDogtagSettings)

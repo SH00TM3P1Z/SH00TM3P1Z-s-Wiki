@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Enhanced Dogtags Wiki</title>
+  <title>SH00TM3P1Z's Wiki</title>
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📋</text></svg>">
   <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify/themes/vue.css">
   <style>
@@ -30,10 +30,10 @@
           var u = typeof url === 'string' ? url : (url && url.url || '');
           if (u && u.indexOf('_sidebar.md') >= 0) {
             return _fetch.apply(this, arguments).then(function(r) {
-              if (r.status === 404) return new Response('* [Home](/kr/Home)', { status: 200, headers: { 'Content-Type': 'text/markdown' } });
+              if (r.status === 404) return new Response('* [🏠 Home](/kr/Home)', { status: 200, headers: { 'Content-Type': 'text/markdown' } });
               return r;
             }).catch(function() {
-              return new Response('* [Home](/kr/Home)', { status: 200, headers: { 'Content-Type': 'text/markdown' } });
+              return new Response('* [🏠 Home](/kr/Home)', { status: 200, headers: { 'Content-Type': 'text/markdown' } });
             });
           }
           return _fetch.apply(this, arguments);
@@ -60,8 +60,8 @@
         '/README': CHOOSE_MD,
         '/README.md': CHOOSE_MD,
         '/_404.md': '# 404\n\nPage not found.',
-        '/_sidebar.md': '* [Home](/kr/Home)',
-        '_sidebar.md': '* [Home](/kr/Home)'
+        '/_sidebar.md': '* [🏠 Home](/kr/Home)',
+        '_sidebar.md': '* [🏠 Home](/kr/Home)'
       },
       plugins: [
         function(hook, vm) {
@@ -82,7 +82,7 @@
               }
               var div = document.createElement('div');
               div.className = 'sidebar-lang';
-              div.innerHTML = '<label id="lang-label">🌐 언어</label><select id="lang-select" onchange="switchLang(this.value)"><option value="">-- 선택 --</option><option value="kr">🇰🇷 한국어</option><option value="en">🇺🇸 English</option><option value="ru">🇷🇺 Русский</option><option value="jp">🇯🇵 日本語</option><option value="zh">🇨🇳 简体中文</option><option value="zhtw">🇹🇼 繁體中文</option><option value="es">🇪🇸 Español</option><option value="de">🇩🇪 Deutsch</option><option value="it">🇮🇹 Italiano</option><option value="fr">🇫🇷 Français</option></select>';
+              div.innerHTML = '<label id="lang-label">🌐 언어</label><select id="lang-select" onchange="switchLang(this.value)"><option value="">-- 선택 --</option><option value="kr">한국어</option><option value="en">English</option><option value="ru">Русский</option><option value="jp">日本語</option><option value="zh">简体中文</option><option value="zhtw">繁體中文</option><option value="es">Español</option><option value="de">Deutsch</option><option value="it">Italiano</option><option value="fr">Français</option></select>';
               sidebar.style.display = 'flex';
               sidebar.style.flexDirection = 'column';
               sidebar.appendChild(div);

@@ -1,4 +1,4 @@
-**[Startseite](/de/Home)**
+**[🏠 Startseite](/de/Home)**
 
 - [Dogtag-Einstellungen](/de/DogtagSettings)
 - [AI-Dogtag-Einstellungen](/de/AIDogtagSettings)

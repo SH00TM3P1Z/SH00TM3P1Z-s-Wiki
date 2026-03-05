@@ -1,4 +1,4 @@
-**[Accueil](/fr/Home)**
+**[🏠 Accueil](/fr/Home)**
 
 - [Paramètres Dogtag de base](/fr/DogtagSettings)
 - [Paramètres Dogtag IA](/fr/AIDogtagSettings)

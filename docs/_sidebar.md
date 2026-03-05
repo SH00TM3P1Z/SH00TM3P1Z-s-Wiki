@@ -1,1 +1,1 @@
-* [Home](/kr/Home)
+* [🏠 Home](/kr/Home)

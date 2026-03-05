@@ -1,4 +1,4 @@
-**[首页](/zh/Home)**
+**[🏠 首页](/zh/Home)**
 
 - [狗牌基本设置](/zh/DogtagSettings)
 - [AI 狗牌设置](/zh/AIDogtagSettings)

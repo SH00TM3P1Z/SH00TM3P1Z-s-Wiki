@@ -1,4 +1,4 @@
-**[Главная](/ru/Home)**
+**[🏠 Главная](/ru/Home)**
 
 - [Настройки жетона](/ru/DogtagSettings)
 - [Настройки ИИ жетона](/ru/AIDogtagSettings)

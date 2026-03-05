@@ -1,4 +1,4 @@
-**[Home](/en/Home)**
+**[🏠 Home](/en/Home)**
 
 - [Dogtag Settings](/en/DogtagSettings)
 - [AI Dogtag Settings](/en/AIDogtagSettings)

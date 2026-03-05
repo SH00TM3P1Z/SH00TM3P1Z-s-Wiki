@@ -1,4 +1,4 @@
-**[홈](/kr/Home)**
+**[🏠 홈](/kr/Home)**
 
 - [독택 기본 설정](/kr/DogtagSettings)
 - [AI 독택 설정](/kr/AIDogtagSettings)
