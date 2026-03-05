@@ -65,6 +65,7 @@
           hook.doneEach(function() {
             setTimeout(injectSidebarUI, 50);
             syncLangSelect();
+            [100, 200, 400].forEach(function(ms) { setTimeout(syncLangSelect, ms); });
             var ht = document.getElementById('home-title');
             if (ht && HOME_TITLE) {
               var code = getCurrentLang() || (function(){
@@ -117,7 +118,11 @@
       if (sel) { sel.value = code; if (sel.options[0]) sel.options[0].text = t.p; }
       if (lbl) lbl.textContent = t.l;
     }
-    window.addEventListener('hashchange', syncLangSelect);
+    window.addEventListener('hashchange', function() {
+      syncLangSelect();
+      setTimeout(syncLangSelect, 100);
+      setTimeout(syncLangSelect, 300);
+    });
     window.addEventListener('load', function() { setTimeout(syncLangSelect, 100); });
   </script>
   <script src="plugins/lang-link.js"></script>
